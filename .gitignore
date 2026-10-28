@@ -10,3 +10,5 @@ public/*
 
 # Environment variables (copy .env.example to .env). Never commit .env
 .env
+.env/example
+atlas-credentials.env
