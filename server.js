@@ -12,7 +12,7 @@ var app = express();
 // Use environment defined port or 3000
 var port = process.env.PORT || 3000;
 
-// Connect to a MongoDB --> Uncomment this once you have a connection string!!
+// Connect to MongoDB Atlas
 mongoose.connect(process.env.MONGODB_URI).catch(function (err) {
   console.error("MongoDB connection error:", err.message);
 });
@@ -25,6 +25,7 @@ var allowCrossDomain = function (req, res, next) {
     "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept",
   );
   res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
+  if (req.method === "OPTIONS") return res.status(204).end();
   next();
 };
 app.use(allowCrossDomain);

@@ -16,6 +16,7 @@ var UserSchema = new mongoose.Schema(
     },
     pendingTasks: {
       type: [String],
+      default: [],
     },
   },
   {
