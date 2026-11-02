@@ -58,12 +58,17 @@ after(async function () {
   await mongoose.disconnect();
 });
 
-async function request(method, endpoint, body, status = 200) {
+async function request(method, endpoint, body, status = method === "DELETE" ? 204 : 200) {
   const response = await fetch(baseUrl + endpoint, {
     method,
     headers: { "Content-Type": "application/json" },
     body: body === undefined ? undefined : JSON.stringify(body),
   });
+  if (status === 204) {
+    assert.equal(response.status, 204, method + " " + endpoint);
+    assert.equal(await response.text(), "");
+    return;
+  }
   const result = await response.json();
   assert.equal(response.status, status, method + " " + endpoint + ": " + result.message);
   assert.equal(typeof result.message, "string");
@@ -259,7 +264,7 @@ test("concurrent task assignments preserve both directions", async function () {
   }
 });
 
-test("deletes clean up pending and completed task references", async function () {
+test("deletes return empty 204 responses and clean up pending and completed task references", async function () {
   const user = await createUser("DeleteOwner");
   const pending = await createTask("DeletePending", { assignedUser: user._id });
   const completed = await createTask("DeleteCompleted", { assignedUser: user._id, completed: true });

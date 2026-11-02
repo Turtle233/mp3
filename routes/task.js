@@ -81,7 +81,7 @@ router.delete("/:id", async function (request, response) {
     );
     await task.deleteOne({ session });
   });
-  response.status(200).json({ message: "Task deleted", data: null });
+  response.status(204).end();
 });
 
 module.exports = router;

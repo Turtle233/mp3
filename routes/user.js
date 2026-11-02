@@ -77,7 +77,7 @@ router.delete("/:id", async function (request, response) {
     );
     await user.deleteOne({ session });
   });
-  response.status(200).json({ message: "User deleted", data: null });
+  response.status(204).end();
 });
 
 module.exports = router;
