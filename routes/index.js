@@ -8,5 +8,5 @@ module.exports = function (app, router) {
   app.use(function (request, response) {
     response.status(404).json({ message: "Route not found", data: null });
   });
-  app.use(require("./helpers").errorHandler);
+  app.use(require("./error_handler").errorHandler);
 };

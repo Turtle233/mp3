@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const User = require("../models/user");
 const Task = require("../models/task");
-const { fail, nonEmptyString, findById, readRoutes } = require("./helpers");
+const { fail, nonEmptyString, findById, readRoutes } = require("./error_handler");
 
 const router = express.Router();
 readRoutes(router, User);
